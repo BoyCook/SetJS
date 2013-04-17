@@ -1,59 +1,62 @@
+var should = require('should');
+var Set = require('../../index.js');
+
 describe('Set', function() {
-    var set;
+    var data;
 
-    beforeEach(function() {
-        set = new Set();
-        set.add('Craig Cook');
-        set.add('Tim Watson');
-        set.add('Charles Care');
-        set.add('Richard Sheath');
-        set.add('Brian Francic');
+    before(function() {
+        data = new Set();
+        data.add('Craig Cook');
+        data.add('Tim Watson');
+        data.add('Charles Care');
+        data.add('Richard Sheath');
+        data.add('Brian Francic');
 
-        expect(set).toBeDefined();
-        expect(set.size()).toEqual(5);
+        data.should.exist;
+        data.size().should.eql(5);
     });
 
     it('should give the correct length', function() {
-        expect(set.size()).toEqual(5);
+        data.size().should.eql(5);
     });
 
     it('should get index correctly', function() {
-        expect(set.getIndex('Charles Care')).toEqual(2);
-        expect(set.getIndex('Charles Doesnt Care')).toEqual(-1);
+        data.getIndex('Charles Care').should.eql(2);
+        data.getIndex('Charles Doesnt Care').should.eql(-1);
     });
 
     it('should know if key exists', function() {
-        expect(set.containsKey(2)).toBeTruthy();
-        expect(set.containsKey(13)).toBeFalsy();
+        data.containsKey(2)
+        data.containsKey(13).should.be.false;
     });
 
     it('should know if item exists', function() {
-        expect(set.contains('Charles Care')).toBeTruthy();
-        expect(set.contains('Charles doesnt Care')).toBeFalsy();
+        data.contains('Charles Care').should.be.true;
+        data.contains('Charles doesnt Care').should.be.false;
     });
 
     it('should be able to remove item', function() {
-        set.remove('Charles Care');
-        expect(set.size()).toEqual(4);
-        expect(set.contains('Charles Care')).toBeFalsy();
+        data.remove('Charles Care');
+        data.size().should.eql(4);
+        data.contains('Charles Care').should.be.false;
     });
 
     it('should not add item twice', function() {
-        set.add('Charles Care');
-        expect(set.size()).toEqual(5);
-        expect(set.contains('Charles Care')).toBeTruthy();
+        data.add('Charles Care');
+        data.size().should.eql(5);
+        data.contains('Charles Care').should.be.true;
     });
 
     it('should add all correctly', function() {
-        set.addAll(['Foo bar', 'John Smith', 'Davy Jones']);
-        expect(set.size()).toEqual(8);
-        expect(set.contains('Foo bar')).toBeTruthy();
-        expect(set.contains('John Smith')).toBeTruthy();
-        expect(set.contains('Davy Jones')).toBeTruthy();
+        data.addAll(['Foo bar', 'John Smith', 'Davy Jones']);
+        data.size().should.eql(8);
+        data.contains('Foo bar').should.be.true;
+        data.contains('John Smith').should.be.true;
+        data.contains('Davy Jones').should.be.true;
     });
 
     it('should clear properly', function() {
-        set.clear();
-        expect(set.size()).toEqual(0);
+        data.clear();
+        data.size().should.eql(0);
     });
 });
